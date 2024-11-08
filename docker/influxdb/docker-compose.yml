@@ -1,0 +1,15 @@
+version: '3'
+services:
+  influxdb:
+    container_name: influxdb
+    image: influxdb:latest
+    restart: unless-stopped
+    volumes:
+      - ./influxdb2_data:/var/lib/influxdb2:rw
+    ports:
+      - "8086:8086"
+    healthcheck:
+      test: ["CMD", "curl", "http://192.168.137.64:8086/api/v2/ping"]
+      interval: 1m
+      timeout: 10s
+      retries: 5

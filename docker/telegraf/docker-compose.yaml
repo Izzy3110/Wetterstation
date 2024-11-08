@@ -1,0 +1,15 @@
+services:
+  telegraf:
+    image: registry.debian-server.local/telegraf:241107
+    container_name: telegraf
+    restart: always
+    volumes:
+      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro  # Mount the Telegraf configuration file
+      - /mnt/telegraf:/tmp
+    ports:
+      - '8125:8125'  # Expose Telegraf's StatsD port
+
+networks:
+  mosquitto:
+    name: mosquitto
+    driver: bridge
